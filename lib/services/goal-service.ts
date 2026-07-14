@@ -20,10 +20,64 @@ export async function getAll() {
 			archived: goal.archived,
 			totalEntries: goal.entries.length,
 			waterRemaining: waterRemaining,
-			daysPastWater: daysPastWater 
+			daysPastWater: daysPastWater
 		} as GoalDto
 
 	})
 	return goalsDto
 
+}
+
+
+export async function createGoal(name: string) {
+
+	const newGoal: Omit<Goal, "id"> = {
+		name: name,
+		waterDuration: 1,
+		milestoneEnabled: false,
+		archived: false
+	}
+
+	const goal: Goal = await goalRepo.createGoal(newGoal);
+
+	const goalDto: GoalDto = {
+		id: goal.id,
+		name: goal.name,
+		waterDuration: goal.waterDuration,
+		milestoneEnabled: goal.milestoneEnabled,
+		archived: goal.archived,
+		totalEntries: 0,
+		waterRemaining: goal.waterDuration,
+		daysPastWater: 0,
+		entries: []
+	};
+
+	return goalDto;
+}
+
+
+export async function deleteGoal(name: string) {
+
+	const newGoal: Omit<Goal, "id"> = {
+		name: name,
+		waterDuration: 1,
+		milestoneEnabled: false,
+		archived: false
+	}
+
+	const goal: Goal = await goalRepo.createGoal(newGoal);
+
+	const goalDto: GoalDto = {
+		id: goal.id,
+		name: goal.name,
+		waterDuration: goal.waterDuration,
+		milestoneEnabled: goal.milestoneEnabled,
+		archived: goal.archived,
+		totalEntries: 0,
+		waterRemaining: goal.waterDuration,
+		daysPastWater: 0,
+		entries: []
+	};
+
+	return goalDto;
 }

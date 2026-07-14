@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
 export default function NarBar() {
-
 	const pathname = usePathname()
 
 	console.log("pathanme ", pathname)
