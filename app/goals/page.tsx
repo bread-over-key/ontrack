@@ -6,6 +6,7 @@ import { GoalDto } from "@/types/GoalDto";
 import { Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, TextField } from "@mui/material"
 import { revalidatePath } from "next/cache";
 import { createGoalAction } from "../actions/goal-actions";
+import Link from "next/link";
 
 export default async function Page() {
 
@@ -16,7 +17,6 @@ export default async function Page() {
 		await createGoalAction(name)
 	}
 
-
 	// ui
 
 	return <Stack>
@@ -24,10 +24,14 @@ export default async function Page() {
 		<List sx={{ flex: 1 }}>
 			{
 				goalDtoList?.map(goal => (
-					<ListItem>
-						<ListItemButton>
+					<ListItem key={goal.id}>
+						<ListItemButton
+						>
 							<ListItemText>
-								{goal.name}
+								<Link href={"/edit-goal/" + goal.id}>
+
+									{goal.name}
+								</Link>
 							</ListItemText>
 						</ListItemButton>
 					</ListItem>
