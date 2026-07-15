@@ -27,7 +27,7 @@ export async function createGoal(goal: Omit<Goal, "id"> ): Promise<Goal> {
 	})
 }
 
-export async function updateGoal(id: number, goal: Goal) {
+export async function updateGoal(id: number, goal: Omit<Goal, "id">) {
 	return await prisma.goal.update(
 		{
 			where: {

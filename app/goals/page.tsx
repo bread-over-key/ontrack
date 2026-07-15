@@ -16,9 +16,6 @@ export default async function Page() {
 		await createGoalAction(name)
 	}
 
-	async function handleArchive() {
-		"use server"
-	}
 
 	// ui
 
@@ -32,11 +29,6 @@ export default async function Page() {
 							<ListItemText>
 								{goal.name}
 							</ListItemText>
-						</ListItemButton>
-						<ListItemButton onClick={}>
-							<ListItemIcon>
-								archive
-							</ListItemIcon>
 						</ListItemButton>
 					</ListItem>
 				))

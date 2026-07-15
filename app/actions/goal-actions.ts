@@ -1,6 +1,7 @@
 "use server"
 
 import { createGoal, deleteGoal, getAll } from "@/lib/services/goal-service";
+import { GoalDto } from "@/types/GoalDto";
 import { revalidatePath } from "next/cache";
 
 export async function getAllAction() {
@@ -16,9 +17,13 @@ export async function createGoalAction(name: string) {
 	revalidatePath("/goals")
 }
 
+export async function updateGoal(id: number, goalDto: Omit<GoalDto, "id" | "entries">) {
 
-export async function deleteGoalAction(name: string) {
-	await deleteGoal(name)
+	return await updateGoal(id, goalDto);
+}
+
+export async function deleteGoalAction(id: number) {
+	await deleteGoal(id)
 	revalidatePath("/goals")
 
 }

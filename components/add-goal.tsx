@@ -13,7 +13,7 @@ export default function AddGoal(props: AddGoalProps) {
 
 	const [newName, setNewName] = useState("");
 
-	function handleAdd(){
+	function handleAdd() {
 
 		props.handleAdd(newName);
 
@@ -22,7 +22,10 @@ export default function AddGoal(props: AddGoalProps) {
 	}
 
 	return <Stack direction={"row"}>
-		<TextField label="name"></TextField>
+		<TextField label="name"
+			value={newName}
+			onChange={(e) => setNewName(e.target.value)}
+		></TextField>
 		<Button onClick={handleAdd}>add</Button>
 	</Stack>
 
