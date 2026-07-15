@@ -18,7 +18,7 @@ export async function getEntry(id: number) {
 	)
 }
 
-export async function createEntry(entry: Entry) {
+export async function createEntry(entry: Omit<Entry, "id">) {
 	return await prisma.entry.create({
 		data: entry
 	})
