@@ -57,7 +57,14 @@ export async function createGoal(name: string) {
 
 export async function updateGoal(id: number, goalDto: Omit<GoalDto, "id" | "entries">) {
 
-	return await goalRepo.updateGoal(id, goalDto);
+	const goal = {
+		name: goalDto.name,
+		archived: goalDto.archived,
+		waterDuration: goalDto.waterDuration,
+		milestoneEnabled: goalDto.milestoneEnabled
+	}
+
+	return await goalRepo.updateGoal(id, goal);
 }
 
 export async function deleteGoal(id: number) {
