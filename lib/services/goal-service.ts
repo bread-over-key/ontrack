@@ -20,7 +20,8 @@ export async function getAll() {
 			archived: goal.archived,
 			totalEntries: goal.entries.length,
 			waterRemaining: waterRemaining,
-			daysPastWater: daysPastWater
+			daysPastWater: daysPastWater,
+			entries: goal.entries
 		} as GoalDto
 
 	})
