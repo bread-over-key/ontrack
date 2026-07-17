@@ -1,12 +1,13 @@
 import { Entry } from "@/generated/prisma/client";
 import * as entryRepo from "@/lib/repositories/entry-repository"
 
-export async function addEntry(type: string) {
+export async function addEntry(goalId: number, type: string, date: Date) {
 
 	const newEntry: Omit<Entry, "id"> = {
 
-		date: new Date(),
-		type: type
+		date: date,
+		type: type,
+		goalId: goalId
 
 	}
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Box, Container, Stack } from "@mui/material";
 import NarBar from "@/components/nav-bar";
+import RootProviders from "@/components/root-providers";
+
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -21,7 +23,9 @@ export default function RootLayout({
 				<Stack sx={{ height: "100vh" }} >
 
 					<Container sx={{ flex: 1 }}>
-						{children}
+						<RootProviders>
+							{children}
+						</RootProviders>
 					</Container>
 					<Box >
 						<NarBar />

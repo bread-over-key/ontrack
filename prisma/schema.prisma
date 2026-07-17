@@ -26,4 +26,5 @@ model Entry {
 	date DateTime
 	type String
   goal Goal @relation(fields: [id], references: [id])
+	goalId Int 
 }

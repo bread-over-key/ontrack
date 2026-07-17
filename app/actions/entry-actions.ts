@@ -2,8 +2,8 @@
 import { addEntry, deleteEntry } from "@/lib/services/entry-service";
 import { revalidatePath } from "next/cache";
 
-export async function addEntryAction(type: string) {
-	await addEntry(type)
+export async function addEntryAction(goalId: number, type: string, date: Date) {
+	await addEntry(goalId, type, date)
 	revalidatePath("/goals")
 }
 

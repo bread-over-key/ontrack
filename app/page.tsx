@@ -1,20 +1,19 @@
 "use server"
+import GoalDetailList from "@/components/goal-detail-list";
+import GoalDetails from "@/components/goal-details";
 import { getAll } from "@/lib/services/goal-service";
-import { Container, Typography } from "@mui/material";
+import { GoalDto } from "@/types/GoalDto";
+import { Container, List, Typography } from "@mui/material";
 import Image from "next/image";
 
 export default async function Home() {
 
-	const goals = await getAll();
+	const goals: GoalDto[] = await getAll();
 
 	return (
 		<Container>
 			<Typography>On Trackk</Typography>
-			{goals?.map(g => {
-
-				return <div>{g.name}</div>
-
-			})}
+			<GoalDetailList goals={goals}/>
 		</Container>
 	);
 }
