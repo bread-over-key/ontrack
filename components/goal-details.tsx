@@ -94,8 +94,8 @@ export default function GoalDetails(props: {
 	}
 
 	return <ListItem>
-		<Stack>
-			<Stack direction={"row"}>
+		<Stack sx={{borderColor: "gray", borderWidth: "1pt", borderStyle: "solid", borderRadius: "7pt"}}>
+			<Stack direction={"row"} sx={{background:"#999", p: "7pt"}}>
 				<Typography>{props.goal.name}</Typography>
 				<Box sx={{ flexGrow: 1 }} />
 
