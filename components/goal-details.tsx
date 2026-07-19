@@ -1,4 +1,5 @@
-import { addEntryAction } from "@/app/actions/entry-actions";
+import { addEntryAction, deleteEntryAction } from "@/app/actions/entry-actions";
+import { isSameDate } from "@/lib/date-compare";
 import { GoalDto } from "@/types/GoalDto";
 import { ListItem, Stack, Chip, Typography, Box, Button } from "@mui/material";
 import { useMemo } from "react";
@@ -11,27 +12,63 @@ export default function GoalDetails(props: {
 	const status = useMemo(
 		() => {
 			return {
-				plan: props.goal.entries.some(x => x.type == "plan" && x.date.getDate() == props.date.getDate()).e,
-				schedule: props.goal.entries.some(x => x.type == "schedule" && x.date.getDate() == props.date.getDate()),
-				doit: props.goal.entries.some(x => x.type == "doit" && x.date.getDate() == props.date.getDate()),
-				milestone: props.goal.entries.some(x => x.type == "milestone" && x.date.getDate() == props.date.getDate()),
+
+				plan: props.goal.entries.find(
+					x =>
+						x.type == "plan" &&
+						isSameDate(x.date, props.date)
+				),
+
+				schedule: props.goal.entries.find(
+					x =>
+						x.type == "schedule" &&
+						isSameDate(x.date, props.date)
+				),
+
+				doit: props.goal.entries.find(
+					x =>
+						x.type == "doit" &&
+						isSameDate(x.date, props.date)
+				),
+
+				milestone: props.goal.entries.find(
+					x =>
+						x.type == "milestone" &&
+						isSameDate(x.date, props.date)
+				)
 			}
 		}, [props.goal, props.date])
 
 	function handlePlan() {
-		addEntryAction(props.goal.id, "plan", props.date)
+		if (!status.plan)
+			addEntryAction(props.goal.id, "plan", props.date)
+		else {
+			deleteEntryAction(status.plan.id)
+		}
 	}
 
 	function handleSchedule() {
-		addEntryAction(props.goal.id, "schedule", props.date)
+		if (!status.schedule)
+			addEntryAction(props.goal.id, "schedule", props.date)
+		else {
+			deleteEntryAction(status.schedule.id)
+		}
 	}
 
 	function handleDoIt() {
-		addEntryAction(props.goal.id, "doit", props.date)
+		if (!status.doit)
+			addEntryAction(props.goal.id, "doit", props.date)
+		else {
+			deleteEntryAction(status.doit.id)
+		}
 	}
 
 	function handleMilestone() {
-		addEntryAction(props.goal.id, "milestone", props.date)
+		if (!status.milestone)
+			addEntryAction(props.goal.id, "milestone", props.date)
+		else {
+			deleteEntryAction(status.milestone.id)
+		}
 	}
 
 	return <ListItem>
@@ -44,17 +81,43 @@ export default function GoalDetails(props: {
 			</Stack>
 			<Stack direction={"row"} spacing={1}>
 				<Button onClick={handlePlan}>
-					<Chip label="plan" sx={{color: status ? "success" : "inherit"}} />
+					<Chip
+						label="plan"
+						sx={
+							{ background: status.plan ? "green" : "inherit" }
+						}
+					/>
 				</Button>
 				<Button onClick={handleSchedule}>
-					<Chip label="schedule" />
+					<Chip label="schedule"
+						sx={
+							{ background: status.schedule ? "green" : "inherit" }
+						}
+					/>
 				</Button>
 				<Button onClick={handleDoIt}>
-					<Chip label="did it" />
+					<Chip label="did it"
+						sx={
+							{
+								background: status.doit
+									? "green" : "inherit"
+							}
+						}
+					/>
 				</Button>
 				<Button onClick={handleMilestone}>
-					<Chip label="milestone" />
+					<Chip label="milestone"
+						sx={
+							{ background: status.milestone ? "green" : "inherit" }
+						}
+					/>
 				</Button>
+			</Stack>
+			<Stack>
+				{props.goal.entries.map(e => (
+					<div>
+						{e.type} {e.date.getTime()}</div>
+				))}
 			</Stack>
 		</Stack>
 
