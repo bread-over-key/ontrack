@@ -1,5 +1,5 @@
 import { addEntryAction, deleteEntryAction } from "@/app/actions/entry-actions";
-import { isSameDate } from "@/lib/date-compare";
+import { differenceInDays, findLastDate, isSameDate } from "@/lib/date-compare";
 import { GoalDto } from "@/types/GoalDto";
 import { ListItem, Stack, Chip, Typography, Box, Button } from "@mui/material";
 import { useMemo } from "react";
@@ -7,7 +7,29 @@ import { useMemo } from "react";
 export default function GoalDetails(props: {
 	goal: GoalDto,
 	date: Date
+	showEntries: boolean
 }) {
+
+	const waterRemaining = useMemo(
+		() => {
+			const entryDates: Date[] =
+				props.goal.entries.map(
+					x => x.date
+				)
+			const lastDate =
+				findLastDate(props.date, entryDates)
+			if (lastDate) {
+
+				const diff =
+					differenceInDays(props.date, lastDate)
+
+				return props.goal.waterDuration - diff
+			}
+
+			return 0
+		}
+		, [props.goal, props.date])
+
 
 	const status = useMemo(
 		() => {
@@ -77,7 +99,10 @@ export default function GoalDetails(props: {
 				<Typography>{props.goal.name}</Typography>
 				<Box sx={{ flexGrow: 1 }} />
 
-				<Typography>water {props.goal.waterRemaining}</Typography>
+				{waterRemaining &&
+					<Typography>water
+						{waterRemaining}</Typography>
+				}
 			</Stack>
 			<Stack direction={"row"} spacing={1}>
 				<Button onClick={handlePlan}>
@@ -113,12 +138,14 @@ export default function GoalDetails(props: {
 					/>
 				</Button>
 			</Stack>
-			<Stack>
-				{props.goal.entries.map(e => (
-					<div>
-						{e.type} {e.date.getTime()}</div>
-				))}
-			</Stack>
+			{props.showEntries &&
+				<Stack>
+					{props.goal.entries.map(e => (
+						<div>
+							{e.type} {e.date.toString()}</div>
+					))}
+				</Stack>
+			}
 		</Stack>
 
 	</ListItem>

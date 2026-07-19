@@ -1,5 +1,5 @@
 "use client"
-import { Box, List, TextField, Typography } from "@mui/material";
+import { Box, Checkbox, List, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from "dayjs";
@@ -15,10 +15,19 @@ export default function GoalDetailList(
 	const [timeTravelDate, setTimeTravelDate] = 
 		useState<Dayjs | null>(dayjs(new Date()))
 
+	const [showEntries, setShowEntries] = 
+		useState(false)
+
 	if (!timeTravelDate) {
 		return <>please select date</>
 	}
 	return <Box>
+	<Typography>Show entries</Typography>
+	<Checkbox 
+	value={showEntries}
+onChange={e => setShowEntries(e.target.checked
+														 )}
+	/>
 		<Typography>Time Travel</Typography>
 		<DatePicker
 			value={timeTravelDate}
@@ -31,6 +40,7 @@ export default function GoalDetailList(
 					key={g.id}
 					goal={g}
 					date={timeTravelDate.toDate()}
+					showEntries={showEntries}
 				></GoalDetails>
 
 			})}
