@@ -95,7 +95,7 @@ export default function GoalDetails(props: {
 
 	return <ListItem>
 		<Stack sx={{ borderLeftColor: "#b2c0d6", borderLeftWidth: "3pt", borderLeftStyle: "solid" }}>
-			<Stack direction={"row"} sx={{ pl: "5pt", background:"#fafdff" }}>
+			<Stack direction={"row"} sx={{ pl: "5pt", background: "#fafdff" }}>
 				<Typography>{props.goal.name}</Typography>
 				<Box sx={{ flexGrow: 1 }} />
 
@@ -103,8 +103,7 @@ export default function GoalDetails(props: {
 					<>
 						{waterRemaining &&
 
-							<Typography>water
-								{waterRemaining}</Typography>
+							<Typography>{waterRemaining}</Typography>
 						}
 						{!waterRemaining && waterRemaining != 0 &&
 
@@ -124,14 +123,14 @@ export default function GoalDetails(props: {
 					<Chip
 						label="plan"
 						sx={
-							{ background: status.plan ? "green" : "inherit" }
+							{ background: status.plan ? "#b2c0d6" : "inherit" }
 						}
 					/>
 				</Button>
 				<Button onClick={handleSchedule} sx={{ p: 0 }}>
 					<Chip label="schedule"
 						sx={
-							{ background: status.schedule ? "green" : "inherit" }
+							{ background: status.schedule ? "#b2c0d6" : "inherit" }
 						}
 					/>
 				</Button>
@@ -140,18 +139,20 @@ export default function GoalDetails(props: {
 						sx={
 							{
 								background: status.doit
-									? "green" : "inherit"
+									? "#b2c0d6" : "inherit"
 							}
 						}
 					/>
 				</Button>
-				<Button onClick={handleMilestone} sx={{ p: 0 }}>
-					<Chip label="milestone"
-						sx={
-							{ background: status.milestone ? "green" : "inherit" }
-						}
-					/>
-				</Button>
+				{props.goal.milestoneEnabled &&
+					<Button onClick={handleMilestone} sx={{ p: 0 }}>
+						<Chip label="milestone"
+							sx={
+								{ background: status.milestone ? "#b2c0d6" : "inherit" }
+							}
+						/>
+					</Button>
+				}
 			</Stack>
 			{props.showEntries &&
 				<Stack>

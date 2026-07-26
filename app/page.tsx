@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default async function Home() {
 
-	const goals: GoalDto[] = await getAll();
+	const goals: GoalDto[] = (await getAll()).filter(x => !x.archived);
 
 	return (
 		<Container>

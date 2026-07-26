@@ -3,7 +3,7 @@
 import AddGoal from "@/components/add-goal";
 import { createGoal, getAll } from "@/lib/services/goal-service";
 import { GoalDto } from "@/types/GoalDto";
-import { Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, TextField } from "@mui/material"
+import { Box, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, TextField, Typography } from "@mui/material"
 import { revalidatePath } from "next/cache";
 import { createGoalAction } from "../actions/goal-actions";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export default async function Page() {
 
 	// ui
 
-	return <Stack>
+	return <Stack sx={{ maxHeight: "100%", overflow: "scroll" }}>
 		<AddGoal handleAdd={handleAdd} />
 		<List sx={{ flex: 1 }}>
 			{
@@ -29,8 +29,7 @@ export default async function Page() {
 							<ListItemButton
 							>
 								<ListItemText>
-
-									{goal.name}
+									{goal.name} {goal.archived && <Typography color="error">archived</Typography>}
 								</ListItemText>
 							</ListItemButton>
 						</Link>
@@ -38,5 +37,5 @@ export default async function Page() {
 				))
 			}
 		</List>
-	</Stack>
+	</Stack >
 }
