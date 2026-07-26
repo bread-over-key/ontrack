@@ -25,7 +25,7 @@ export default function RootLayout({
 					<Container sx={{ background: "#b2c0d6", p:"1%" }}>
 					<Stack direction="row" sx={{justifyContent:"space-between"}}>
 						<Typography variant="h5">🫐 On Track</Typography>
-						<Typography color="textDisabled">v1.1</Typography>
+						<Typography color="textDisabled">v1.2</Typography>
 					</Stack>
 						</Container>
 					<Container sx={{ flex: 1, mt: "10pt", maxHeight:"87vh" }} >

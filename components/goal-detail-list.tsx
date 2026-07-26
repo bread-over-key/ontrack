@@ -23,7 +23,7 @@ export default function GoalDetailList(
 	}
 	return <Box>
 
-		<Stack direction={"row"} sx={{ justifyContent: "space-between", flexWrap:"wrap" }}>
+		<Stack direction={"row"} sx={{ justifyContent: "space-between", flexWrap: "wrap" }}>
 
 			<Stack direction={"row"} sx={{ alignItems: "center" }} spacing={2}>
 				<Typography>Show entries</Typography>
@@ -42,19 +42,20 @@ export default function GoalDetailList(
 				/>
 			</Stack>
 		</Stack >
-		<List>
-			{props.goals?.map(g => {
+		<Box sx={{overflow: "scroll", maxHeight:"76vh"}}>
+			<List>
+				{props.goals?.map(g => {
 
-				return <GoalDetails
-					key={g.id}
-					goal={g}
-					date={timeTravelDate.toDate()}
-					showEntries={showEntries}
-				></GoalDetails>
+					return <GoalDetails
+						key={g.id}
+						goal={g}
+						date={timeTravelDate.toDate()}
+						showEntries={showEntries}
+					></GoalDetails>
 
-			})}
-		</List>
-
+				})}
+			</List>
+		</Box>
 	</Box >
 
 }
