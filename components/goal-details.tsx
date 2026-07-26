@@ -1,7 +1,7 @@
 import { addEntryAction, deleteEntryAction } from "@/app/actions/entry-actions";
 import { differenceInDays, findLastDate, isSameDate } from "@/lib/date-compare";
 import { GoalDto } from "@/types/GoalDto";
-import { ListItem, Stack, Chip, Typography, Box, Button } from "@mui/material";
+import { ListItem, Stack, Chip, Typography, Box, Button, Divider } from "@mui/material";
 import { useMemo } from "react";
 
 export default function GoalDetails(props: {
@@ -94,18 +94,33 @@ export default function GoalDetails(props: {
 	}
 
 	return <ListItem>
-		<Stack sx={{borderColor: "gray", borderWidth: "1pt", borderStyle: "solid", borderRadius: "7pt"}}>
-			<Stack direction={"row"} sx={{background:"#999", p: "7pt"}}>
+		<Stack sx={{ borderLeftColor: "#b2c0d6", borderLeftWidth: "3pt", borderLeftStyle: "solid" }}>
+			<Stack direction={"row"} sx={{ pl: "5pt", background:"#fafdff" }}>
 				<Typography>{props.goal.name}</Typography>
 				<Box sx={{ flexGrow: 1 }} />
 
-				{waterRemaining &&
-					<Typography>water
-						{waterRemaining}</Typography>
-				}
+				<Chip label={
+					<>
+						{waterRemaining &&
+
+							<Typography>water
+								{waterRemaining}</Typography>
+						}
+						{!waterRemaining && waterRemaining != 0 &&
+
+							<Typography>
+								water error</Typography>
+						}
+					</>
+				}>
+				</Chip >
+
+
 			</Stack>
-			<Stack direction={"row"} spacing={1}>
-				<Button onClick={handlePlan}>
+			<Stack
+				direction={"row"}
+			>
+				<Button onClick={handlePlan} sx={{ p: 0, m: 0 }}>
 					<Chip
 						label="plan"
 						sx={
@@ -113,14 +128,14 @@ export default function GoalDetails(props: {
 						}
 					/>
 				</Button>
-				<Button onClick={handleSchedule}>
+				<Button onClick={handleSchedule} sx={{ p: 0 }}>
 					<Chip label="schedule"
 						sx={
 							{ background: status.schedule ? "green" : "inherit" }
 						}
 					/>
 				</Button>
-				<Button onClick={handleDoIt}>
+				<Button onClick={handleDoIt} sx={{ p: 0 }}>
 					<Chip label="did it"
 						sx={
 							{
@@ -130,7 +145,7 @@ export default function GoalDetails(props: {
 						}
 					/>
 				</Button>
-				<Button onClick={handleMilestone}>
+				<Button onClick={handleMilestone} sx={{ p: 0 }}>
 					<Chip label="milestone"
 						sx={
 							{ background: status.milestone ? "green" : "inherit" }

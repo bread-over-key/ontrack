@@ -12,7 +12,6 @@ export default async function Home() {
 
 	return (
 		<Container>
-			<Typography>On Trackk</Typography>
 			<GoalDetailList goals={goals}/>
 		</Container>
 	);

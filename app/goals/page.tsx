@@ -25,15 +25,15 @@ export default async function Page() {
 			{
 				goalDtoList?.map(goal => (
 					<ListItem key={goal.id}>
-						<ListItemButton
-						>
-							<ListItemText>
-								<Link href={"/edit-goal/" + goal.id}>
+						<Link href={"/edit-goal/" + goal.id}>
+							<ListItemButton
+							>
+								<ListItemText>
 
 									{goal.name}
-								</Link>
-							</ListItemText>
-						</ListItemButton>
+								</ListItemText>
+							</ListItemButton>
+						</Link>
 					</ListItem>
 				))
 			}
