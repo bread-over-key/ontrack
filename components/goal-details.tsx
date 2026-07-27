@@ -1,8 +1,10 @@
 import { addEntryAction, deleteEntryAction } from "@/app/actions/entry-actions";
 import { differenceInDays, findLastDate, isSameDate } from "@/lib/date-compare";
+import { EntryDto } from "@/types/EntryDto";
 import { GoalDto } from "@/types/GoalDto";
 import { ListItem, Stack, Chip, Typography, Box, Button, Divider } from "@mui/material";
-import { useMemo, useOptimistic, useTransition } from "react";
+import { type } from "os";
+import { startTransition, useEffect, useMemo, useOptimistic, useTransition } from "react";
 
 export default function GoalDetails(props: {
 	goal: GoalDto,
@@ -11,10 +13,14 @@ export default function GoalDetails(props: {
 	showSort: boolean
 }) {
 
+
+	const [optimisticGoal, setOptimisticGoal]
+		= useOptimistic(props.goal)
+
 	const waterRemaining = useMemo(
 		() => {
 			const entryDates: Date[] =
-				props.goal.entries.map(
+				optimisticGoal.entries.map(
 					x => x.date
 				)
 			const lastDate =
@@ -29,52 +35,84 @@ export default function GoalDetails(props: {
 
 			return "new"
 		}
-		, [props.goal, props.date])
+		, [optimisticGoal, props.goal, props.date])
 
 
-	const [isPending, startTransition]
-		= useTransition()
 
-	const [optimisticGoal, addOptimisticGoal] 
-		= useOptimistic(props.goal)
+	useEffect(() => {
+
+		console.log("optimistic updated")
+		console.dir(optimisticGoal)
+
+	}, [optimisticGoal])
 
 
 	const status = useMemo(
 		() => {
+			console.log("status upadted")
 			return {
-
-				plan: props.goal.entries.find(
+				plan: optimisticGoal.entries.find(
 					x =>
 						x.type == "plan" &&
 						isSameDate(x.date, props.date)
 				),
 
-				schedule: props.goal.entries.find(
+				schedule: optimisticGoal.entries.find(
 					x =>
 						x.type == "schedule" &&
 						isSameDate(x.date, props.date)
 				),
 
-				doit: props.goal.entries.find(
+				doit: optimisticGoal.entries.find(
 					x =>
 						x.type == "doit" &&
 						isSameDate(x.date, props.date)
 				),
 
-				milestone: props.goal.entries.find(
+				milestone: optimisticGoal.entries.find(
 					x =>
 						x.type == "milestone" &&
 						isSameDate(x.date, props.date)
 				)
 			}
-		}, [props.goal, props.date])
+		}, [optimisticGoal, props.goal, props.date])
 
 	function handlePlan() {
-		if (!status.plan)
-			addEntryAction(props.goal.id, "plan", props.date)
-		else {
-			deleteEntryAction(status.plan.id)
-		}
+		console.log("handle plan")
+		startTransition(async () => {
+
+			if (!status.plan) {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries.push(
+					{
+						id: 1,
+						date: props.date,
+						type: "plan",
+					})
+
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+
+				await addEntryAction(props.goal.id, "plan", props.date)
+			}
+			else {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries = 
+					tempGoal
+					.entries
+					.filter(x => x.id != (status.plan?.id ?? 0))
+				console.log("new goal")
+				console.log("id to delete", status.plan.id)
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				await deleteEntryAction(status.plan.id)
+			}
+			console.log("end transition")
+
+		})
+
 	}
 
 	function handleSchedule() {
