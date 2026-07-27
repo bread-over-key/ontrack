@@ -22,10 +22,14 @@ export default function RootLayout({
 			<body>
 				<Stack sx={{ height: "100vh" }} >
 
-					<Container sx={{ background: "#e1e6ed", p:"1%" }}>
+					<Container 
+					sx={{  p:"1%", 
+						borderBottomStyle: "solid",
+					  borderBottomColor: "#ddd",
+						borderBottomWidth: "1pt"}}>
 					<Stack direction="row" sx={{justifyContent:"space-between", alignItems:"center", pr:"3px"}}>
 						<Typography variant="h5">🫐 On Track</Typography>
-						<Typography color="textDisabled">v1.3</Typography>
+						<Typography color="textDisabled">v1.4</Typography>
 					</Stack>
 						</Container>
 					<Container sx={{ flex: 1, mt: "10pt", maxHeight:"87vh" }} >
