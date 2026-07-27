@@ -42,7 +42,7 @@ export default function GoalDetailList(
 				/>
 			</Stack>
 		</Stack >
-		<Box sx={{overflow: "scroll", maxHeight:"76vh"}}>
+		<Box sx={{overflow: "scroll", overflowX: "clip", maxHeight:"76vh"}}>
 			<List>
 				{props.goals?.map(g => {
 

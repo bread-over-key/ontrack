@@ -1,4 +1,4 @@
-import { updateGoalAction } from "@/app/actions/goal-actions";
+import { deleteGoalAction, updateGoalAction } from "@/app/actions/goal-actions";
 import EditGoal from "@/components/edit-goal";
 import { getAll } from "@/lib/services/goal-service";
 import { GoalDto } from "@/types/GoalDto";
@@ -22,10 +22,14 @@ export default async function Page({
 
 	return <Box>
 
-		<Typography>goal: {slug}</Typography>
+		<Box sx={{ pb: 4 }}>
+			<Typography variant="h4">Edit Goal</Typography>
+			<Typography color="textSecondary">id {slug}</Typography>
+		</Box>
 		<EditGoal
 			goalDto={goal}
 			onUpdate={updateGoalAction}
+			onDelete={deleteGoalAction}
 		></EditGoal>
 	</Box>
 

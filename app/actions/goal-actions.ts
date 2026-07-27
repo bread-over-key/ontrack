@@ -19,7 +19,9 @@ export async function createGoalAction(name: string) {
 
 export async function updateGoalAction(id: number, goalDto: Omit<GoalDto, "id" | "entries">) {
 
-	return await updateGoal(id, goalDto);
+	const result = await updateGoal(id, goalDto);
+	revalidatePath("/goals")
+	return result
 }
 
 export async function deleteGoalAction(id: number) {

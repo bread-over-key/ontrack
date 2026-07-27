@@ -1,7 +1,9 @@
 "use client"
 
+import { deleteGoalAction } from "@/app/actions/goal-actions";
 import { GoalDto } from "@/types/GoalDto";
 import { Stack, Typography, TextField, Checkbox, Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 interface EditGoalProps {
@@ -10,11 +12,12 @@ interface EditGoalProps {
 		id: number,
 		goalDto: Omit<GoalDto, "id" | "entries">
 	) => void
+	onDelete: (id: number) => {}
 }
 
 export default function EditGoal(props: EditGoalProps) {
 
-
+	const router = useRouter();
 	const [goal, setGoal] = useState<GoalDto>(props.goalDto);
 
 
@@ -33,7 +36,19 @@ export default function EditGoal(props: EditGoalProps) {
 		console.dir(newGoal)
 	}
 
-	return <Stack spacing={2} >
+	function handleDelete() {
+		console.dir(props.goalDto)
+		const result = confirm("are you sure")
+
+		if (result) {
+			console.dir(props.goalDto.id)
+			props.onDelete(props.goalDto.id);
+			router.push("/goals")
+		}
+
+	}
+
+	return <Stack spacing={3} >
 		<TextField
 			label={"name"}
 			value={goal.name}
@@ -49,26 +64,33 @@ export default function EditGoal(props: EditGoalProps) {
 				)
 			}
 		/>
-		<Typography>archived</Typography>
-		<Checkbox
-			checked={goal.archived}
-			onChange={
-				e => updateParameter(
-					"archived",
-					e.target.checked
-				)
-			}
-		/>
-		<Typography>milestone enabled`</Typography>
-		<Checkbox
-			checked={goal.milestoneEnabled}
-			onChange={
-				e => updateParameter(
-					"milestoneEnabled",
-					e.target.checked
-				)
-			}
-		/>
-		<Button onClick={handleUpdate}>Update</Button>
+		<Stack direction={"row"} sx={{ alignItems: "center", justifyContent: "space-between" }}>
+			<Typography>archived</Typography>
+			<Checkbox
+				checked={goal.archived}
+				onChange={
+					e => updateParameter(
+						"archived",
+						e.target.checked
+					)
+				}
+			/>
+		</Stack>
+		<Stack direction={"row"} sx={{ alignItems: "center", justifyContent: "space-between" }}>
+			<Typography>milestone enabled</Typography>
+			<Checkbox
+				checked={goal.milestoneEnabled}
+				onChange={
+					e => updateParameter(
+						"milestoneEnabled",
+						e.target.checked
+					)
+				}
+			/>
+		</Stack>
+		<Stack direction={"row"} sx={{ flexGrow: 1, alignItems: "center", justifyContent: "space-between" }}>
+			<Button onClick={handleDelete} variant="outlined" color="error">Delete</Button>
+			<Button onClick={handleUpdate} variant="contained">Update</Button>
+		</Stack>
 	</Stack>
 }
