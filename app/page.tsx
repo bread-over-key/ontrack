@@ -31,8 +31,12 @@ export default async function Home() {
 			goal.waterRemaining = -1000;
 		}
 	})
-
-	goalDtoList = goalDtoList.sort((x, y) => y.waterRemaining - x.waterRemaining)
+	/*
+		goalDtoList = 
+			goalDtoList
+				.sort(
+					(x, y) => y.waterRemaining - x.waterRemaining)
+	*/
 
 	async function handleRefresh() {
 
