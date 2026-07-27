@@ -1,5 +1,5 @@
 "use client"
-import { Accordion, AccordionDetails, AccordionSummary, Box, Card, CardContent, Checkbox, Divider, List, Stack, Switch, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardContent, Checkbox, Divider, List, Stack, Switch, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from "dayjs";
@@ -8,6 +8,7 @@ import { GoalDto } from "@/types/GoalDto";
 import React from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useRouter } from "next/navigation";
 
 
 
@@ -23,6 +24,7 @@ export default function GoalDetailList(
 
 	const [showEntries, setShowEntries] =
 		useState(false)
+	const router = useRouter();
 
 	if (!timeTravelDate) {
 		return <>please select date</>
@@ -74,11 +76,15 @@ export default function GoalDetailList(
 				<Box sx={{ m: 1 }}></Box>
 				<Divider />
 				<Box sx={{ m: 1 }}></Box>
+				<Button variant="outlined" onClick={() => { router.push("/") }}>Refresh</Button>
+				<Box sx={{ m: 1 }}></Box>
+				<Divider />
+				<Box sx={{ m: 1 }}></Box>
 			</AccordionDetails>
 		</Accordion>
 
 		<Typography variant="h6" color="textSecondary">Recurring</Typography>
-		<Box sx={{ overflow: "scroll", overflowX: "clip", maxHeight: "76vh" }}>
+		<Box sx={{ overflow: "scroll", overflowX: "hidden", maxHeight: "76vh" }}>
 			<List>
 				{props.goals?.filter(x => x.recurring).map(g => {
 
