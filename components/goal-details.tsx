@@ -2,12 +2,13 @@ import { addEntryAction, deleteEntryAction } from "@/app/actions/entry-actions";
 import { differenceInDays, findLastDate, isSameDate } from "@/lib/date-compare";
 import { GoalDto } from "@/types/GoalDto";
 import { ListItem, Stack, Chip, Typography, Box, Button, Divider } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, useOptimistic, useTransition } from "react";
 
 export default function GoalDetails(props: {
 	goal: GoalDto,
 	date: Date
 	showEntries: boolean
+	showSort: boolean
 }) {
 
 	const waterRemaining = useMemo(
@@ -29,6 +30,13 @@ export default function GoalDetails(props: {
 			return "new"
 		}
 		, [props.goal, props.date])
+
+
+	const [isPending, startTransition]
+		= useTransition()
+
+	const [optimisticGoal, addOptimisticGoal] 
+		= useOptimistic(props.goal)
 
 
 	const status = useMemo(
@@ -95,88 +103,94 @@ export default function GoalDetails(props: {
 
 	return <ListItem sx={{ pl: 0 }}>
 		<Stack sx={{ borderLeftColor: "#b2c0d6", borderLeftWidth: "3pt", borderLeftStyle: "solid" }}>
-			<Stack direction={"row"} sx={{ pl: "5pt", pr:"15pt", alignItems:"center" }}>
+			<Stack direction={"row"} sx={{ pl: "5pt", pr: "15pt", alignItems: "center" }}>
 				<Typography>{props.goal.name}</Typography>
 				<Box sx={{ flexGrow: 1 }} />
 
+				{props.showSort &&
+					<Box>
+						sort:
+						{props.goal.waterRemaining}
+					</Box>
+				}
 				<Chip
 
-					sx={{background: typeof(waterRemaining) === "number" && waterRemaining >= 0 ? "#a1db86" :"#ddd"}}
+					sx={{ background: typeof (waterRemaining) === "number" && waterRemaining >= 0 ? "#a1db86" : "#ddd" }}
 
-				label={
-					<>
-						{waterRemaining &&
+					label={
+						<>
+							{waterRemaining &&
 
-							<Typography>{waterRemaining}</Typography>
-						}
-						{!waterRemaining && waterRemaining != 0 &&
+								<Typography>{waterRemaining}</Typography>
+							}
+							{!waterRemaining && waterRemaining != 0 &&
 
-							<Typography>
-								water error</Typography>
-						}
-					</>
-				}>
-			</Chip >
+								<Typography>
+									water error</Typography>
+							}
+						</>
+					}>
+				</Chip >
 
 
-		</Stack>
-		<Stack
-			direction={"row"}
-			sx={{pt:"2pt"}}
-		>
-			<Button onClick={handlePlan} sx={{ p: 0, m: 0 }} >
-				<Chip
-					label="plan"
-					sx={
-						{
-							background: status.plan ? "#b2c0d6" : "inherit",
-							color: status.plan ? "black" :"gray"
+			</Stack>
+			<Stack
+				direction={"row"}
+				sx={{ pt: "2pt" }}
+			>
+				<Button onClick={handlePlan} sx={{ p: 0, m: 0 }} >
+					<Chip
+						label="plan"
+						sx={
+							{
+								background: status.plan ? "#b2c0d6" : "inherit",
+								color: status.plan ? "black" : "gray"
+							}
 						}
-					}
-				/>
-			</Button>
-			<Button onClick={handleSchedule} sx={{ p: 0 }}>
-				<Chip label="schedule"
-					sx={
-						{
-							background: status.schedule ? "#b2c0d6" : "inherit",
-							color: status.schedule ? "black" :"gray"
-						}
-					}
-				/>
-			</Button>
-			<Button onClick={handleDoIt} sx={{ p: 0 }}>
-				<Chip label="did it"
-					sx={
-						{
-							background: status.doit ? "#b2c0d6" : "inherit",
-							color: status.doit ? "black" :"gray"
-						}
-					}
-				/>
-			</Button>
-			{props.goal.milestoneEnabled &&
-				<Button onClick={handleMilestone} sx={{ p: 0 }}>
-					<Chip label="milestone"
-					sx={
-						{
-							background: status.milestone ? "#b2c0d6" : "inherit",
-							color: status.milestone ? "black" :"gray"
-						}
-					}
 					/>
 				</Button>
+				<Button onClick={handleSchedule} sx={{ p: 0 }}>
+					<Chip label="schedule"
+						sx={
+							{
+								background: status.schedule ? "#b2c0d6" : "inherit",
+								color: status.schedule ? "black" : "gray"
+							}
+						}
+					/>
+				</Button>
+				<Button onClick={handleDoIt} sx={{ p: 0 }}>
+					<Chip label="did it"
+						sx={
+							{
+								background: status.doit ? "#b2c0d6" : "inherit",
+								color: status.doit ? "black" : "gray"
+							}
+						}
+					/>
+				</Button>
+				{props.goal.milestoneEnabled &&
+					<Button onClick={handleMilestone} sx={{ p: 0 }}>
+						<Chip label="milestone"
+							sx={
+								{
+									background: status.milestone ? "#b2c0d6" : "inherit",
+									color: status.milestone ? "black" : "gray"
+								}
+							}
+						/>
+					</Button>
+				}
+			</Stack>
+			{props.showEntries &&
+				<Stack>
+					{props.goal.entries.map(e => (
+						<div>
+							{e.type} {e.date.toString()}</div>
+					))}
+				</Stack>
 			}
 		</Stack>
-		{props.showEntries &&
-			<Stack>
-				{props.goal.entries.map(e => (
-					<div>
-						{e.type} {e.date.toString()}</div>
-				))}
-			</Stack>
-		}
-	</Stack>
 
 	</ListItem >
 }

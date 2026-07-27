@@ -25,6 +25,8 @@ export default function GoalDetailList(
 
 	const [showEntries, setShowEntries] =
 		useState(false)
+	const [showSort, setShowSort] =
+		useState(false)
 	const router = useRouter();
 
 	if (!timeTravelDate) {
@@ -54,6 +56,15 @@ export default function GoalDetailList(
 					<Switch
 						value={showEntries}
 						onChange={e => setShowEntries(e.target.checked
+						)}
+					/>
+
+				</Stack>
+				<Stack direction={"row"} sx={{ alignItems: "center", justifyContent: "space-between" }} spacing={2}>
+					<Typography>Show sort</Typography>
+					<Switch
+						value={showSort}
+						onChange={e => setShowSort(e.target.checked
 						)}
 					/>
 
@@ -109,6 +120,7 @@ export default function GoalDetailList(
 						goal={g}
 						date={timeTravelDate.toDate()}
 						showEntries={showEntries}
+						showSort={showSort}
 					></GoalDetails>
 
 				})}
