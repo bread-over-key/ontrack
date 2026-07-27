@@ -105,6 +105,7 @@ export default function GoalDetailList(
 						goal={g}
 						date={timeTravelDate.toDate()}
 						showEntries={showEntries}
+						showSort={showSort}
 					></GoalDetails>
 
 				})}
