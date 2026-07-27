@@ -8,7 +8,7 @@ import { refresh } from "next/cache";
 
 export default async function Home() {
 
-	const goalDtoList: GoalDto[] = await getAll();
+	const goalDtoList: GoalDto[] = (await getAll()).filter(x => !x.archived);
 	const currentDate = new Date()
 
 	async function handleRefresh() {

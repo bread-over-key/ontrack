@@ -5,6 +5,8 @@ import NarBar from "./nav-bar"
 import RootProviders from "./root-providers"
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
+const version = "1.5"
+
 export default function GlobalLayout(props: { children: React.ReactNode }) {
 	return <AppRouterCacheProvider>
 		<Stack sx={{ height: "100vh" }} >
@@ -18,7 +20,7 @@ export default function GlobalLayout(props: { children: React.ReactNode }) {
 				}}>
 				<Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center", pr: "3px" }}>
 					<Typography variant="h5">🫐 On Track</Typography>
-					<Typography color="textDisabled">v1.4</Typography>
+					<Typography color="textDisabled">v{version}</Typography>
 				</Stack>
 			</Container>
 			<Container sx={{ flex: 1, mt: "10pt", maxHeight: "87vh" }} >
