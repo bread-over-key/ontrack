@@ -1,17 +1,17 @@
 "use server"
+
 import GoalDetailList from "@/components/goal-detail-list";
-import GoalDetails from "@/components/goal-details";
 import { getAll } from "@/lib/services/goal-service";
 import { GoalDto } from "@/types/GoalDto";
-import { Container, List, Typography } from "@mui/material";
-import Image from "next/image";
-import { refresh } from 'next/cache'
+import { Container } from "@mui/material";
+import { refresh } from "next/cache";
 
 export default async function Home() {
 
-	const goals: GoalDto[] = (await getAll()).filter(x => !x.archived);
+	const goalDtoList: GoalDto[] = await getAll();
+	const currentDate = new Date()
 
-	async function handleRefresh(){
+	async function handleRefresh() {
 
 		"use server"
 
@@ -19,12 +19,12 @@ export default async function Home() {
 
 	}
 
-	return (
-		<Container>
-			<GoalDetailList
-				goals={goals}
-				handleRefresh={handleRefresh}
-			/>
-		</Container>
-	);
+	return <Container>
+		<GoalDetailList
+			goals={goalDtoList}
+			handleRefresh={handleRefresh}
+			currentDate={currentDate}
+		/>
+	</Container>
+
 }

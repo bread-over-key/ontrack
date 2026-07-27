@@ -1,3 +1,5 @@
+"use server"
+
 import { deleteGoalAction, updateGoalAction } from "@/app/actions/goal-actions";
 import EditGoal from "@/components/edit-goal";
 import { getAll } from "@/lib/services/goal-service";
@@ -19,6 +21,8 @@ export default async function Page({
 	if (!goal) {
 		return <div>goal not found</div>
 	}
+
+	console.dir(goalDtoList)
 
 	return <Box>
 

@@ -1,11 +1,10 @@
 import { Entry, Goal } from "@/generated/prisma/browser";
 import * as goalRepo from "@/lib/repositories/goal-repository"
 import { GoalDto } from "@/types/GoalDto";
-import { receiveMessageOnPort } from "worker_threads";
-
 
 export async function getAll() {
 
+	console.log("get all")
 	const goalsWithEntries: (Goal & { entries: Entry[] })[] = await goalRepo.getAllGoalsWithEntries();
 
 	const goalsDto: GoalDto[] = goalsWithEntries.map(goal => {
