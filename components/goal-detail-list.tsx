@@ -99,7 +99,12 @@ export default function GoalDetailList(
 			sx={{
 				overflow: "scroll",
 				overflowX: "hidden",
-				maxHeight: "76vh"
+				maxHeight: "76vh",
+				scrollbarWidth: "none", // Firefox
+				msOverflowStyle: "none", // IE/Edge
+				"&::-webkit-scrollbar": {
+					display: "none", // Chrome, Safari
+				},
 			}}
 		>
 			<Typography
