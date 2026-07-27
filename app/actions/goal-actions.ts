@@ -17,6 +17,7 @@ export async function createGoalAction(name: string) {
 	await createGoal(name)
 	revalidatePath("/goals")
 	revalidatePath("/")
+	revalidatePath('/edit-goal/[slug]', 'page')
 }
 
 export async function updateGoalAction(id: number, goalDto: Omit<GoalDto, "id" | "entries">) {
@@ -24,6 +25,7 @@ export async function updateGoalAction(id: number, goalDto: Omit<GoalDto, "id" |
 	const result = await updateGoal(id, goalDto);
 	revalidatePath("/goals")
 	revalidatePath("/")
+	revalidatePath('/edit-goal/[slug]', 'page')
 	return result
 }
 
@@ -31,5 +33,6 @@ export async function deleteGoalAction(id: number) {
 	await deleteGoal(id)
 	revalidatePath("/goals")
 	revalidatePath("/")
+	revalidatePath('/edit-goal/[slug]', 'page')
 
 }

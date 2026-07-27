@@ -292,6 +292,18 @@ export default function GoalDetails(props: {
 						/>
 					</Button>
 				}
+				{!props.goal.milestoneEnabled &&
+					<Button >
+						<Chip label="mileone"
+							sx={
+								{
+									background: "white",
+									color: "white"
+								}
+							}
+						/>
+					</Button>
+				}
 			</Stack>
 			{props.showEntries &&
 				<Stack>
