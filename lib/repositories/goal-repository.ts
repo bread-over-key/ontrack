@@ -39,7 +39,6 @@ export async function updateGoal(id: number, goal: Omit<Goal, "id">) {
 }
 
 export async function deleteGoal(id: number) {
-	console.log("delete id: ", id)
 	return await prisma.goal.delete(
 		{
 			where: {

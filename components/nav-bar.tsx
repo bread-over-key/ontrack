@@ -7,7 +7,6 @@ import { useMemo } from "react";
 export default function NarBar() {
 	const pathname = usePathname()
 
-	console.log("pathanme ", pathname)
 	const value = useMemo(() => {
 		if (pathname == "/")
 			return 0;

@@ -4,7 +4,6 @@ import { GoalDto } from "@/types/GoalDto";
 
 export async function getAll() {
 
-	console.log("get all")
 	const goalsWithEntries: (Goal & { entries: Entry[] })[] = await goalRepo.getAllGoalsWithEntries();
 
 	const goalsDto: GoalDto[] = goalsWithEntries.map(goal => {

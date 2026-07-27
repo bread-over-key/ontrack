@@ -23,33 +23,29 @@ export default function GoalDetails(props: {
 				optimisticGoal.entries.map(
 					x => x.date
 				)
+
 			const lastDate =
 				findLastDate(props.date, entryDates)
 			if (lastDate) {
 
 				const diff =
 					differenceInDays(props.date, lastDate)
+				console.log("last date", lastDate)
+				console.log("prop date", props.date)
+				console.log("diff", diff)
+				console.log("props.goal.waterDuration", props.goal.waterDuration)
 
-				return props.goal.waterDuration - diff
+				const result = props.goal.waterDuration - diff
+				console.log("result", result)
+				return result
 			}
 
 			return "new"
 		}
 		, [optimisticGoal, props.goal, props.date])
 
-
-
-	useEffect(() => {
-
-		console.log("optimistic updated")
-		console.dir(optimisticGoal)
-
-	}, [optimisticGoal])
-
-
 	const status = useMemo(
 		() => {
-			console.log("status upadted")
 			return {
 				plan: optimisticGoal.entries.find(
 					x =>
@@ -78,7 +74,6 @@ export default function GoalDetails(props: {
 		}, [optimisticGoal, props.goal, props.date])
 
 	function handlePlan() {
-		console.log("handle plan")
 		startTransition(async () => {
 
 			if (!status["plan"]) {
@@ -103,13 +98,9 @@ export default function GoalDetails(props: {
 					tempGoal
 						.entries
 						.filter(x => x.id != (status.plan?.id ?? 0))
-				console.log("new goal")
-				console.log("id to delete", status.plan.id)
-				console.dir(tempGoal)
 				setOptimisticGoal(tempGoal)
 				await deleteEntryAction(status.plan.id)
 			}
-			console.log("end transition")
 
 		})
 
@@ -139,9 +130,6 @@ export default function GoalDetails(props: {
 					tempGoal
 						.entries
 						.filter(x => x.id != (status.schedule?.id ?? 0))
-				console.log("new goal")
-				console.log("id to delete", status.schedule.id)
-				console.dir(tempGoal)
 				setOptimisticGoal(tempGoal)
 				deleteEntryAction(status.schedule.id)
 			}
@@ -171,9 +159,6 @@ export default function GoalDetails(props: {
 					tempGoal
 						.entries
 						.filter(x => x.id != (status.doit?.id ?? 0))
-				console.log("new goal")
-				console.log("id to delete", status.doit.id)
-				console.dir(tempGoal)
 				setOptimisticGoal(tempGoal)
 				deleteEntryAction(status.doit.id)
 			}
@@ -203,9 +188,6 @@ export default function GoalDetails(props: {
 					tempGoal
 						.entries
 						.filter(x => x.id != (status.milestone?.id ?? 0))
-				console.log("new goal")
-				console.log("id to delete", status.milestone.id)
-				console.dir(tempGoal)
 				setOptimisticGoal(tempGoal)
 				deleteEntryAction(status.milestone.id)
 			}
