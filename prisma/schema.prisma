@@ -16,6 +16,7 @@ model Goal {
   id               Int     @id @default(autoincrement())
   name             String  @unique
   waterDuration    Int
+	recurring				 Boolean @default(false)
   milestoneEnabled Boolean
 	archived				 Boolean @default(false)
   entries          Entry[]

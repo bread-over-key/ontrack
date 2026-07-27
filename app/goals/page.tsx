@@ -19,11 +19,29 @@ export default async function Page() {
 
 	// ui
 
-	return <Stack sx={{ maxHeight: "100%", overflow: "scroll" }}>
+	return <Stack sx={{ maxHeight: "100%", overflow: "scroll" }} spacing={3}>
 		<AddGoal handleAdd={handleAdd} />
+		<Typography variant="h5">Recurring</Typography>
 		<List sx={{ flex: 1 }}>
 			{
-				goalDtoList?.map(goal => (
+				goalDtoList?.filter(x => x.recurring).map(goal => (
+					<ListItem key={goal.id}>
+						<Link href={"/edit-goal/" + goal.id}>
+							<ListItemButton
+							>
+								<ListItemText>
+									{goal.name} {goal.archived && <Typography color="error">archived</Typography>}
+								</ListItemText>
+							</ListItemButton>
+						</Link>
+					</ListItem>
+				))
+			}
+		</List>
+		<Typography variant="h5">Non Recurring</Typography>
+		<List sx={{ flex: 1 }}>
+			{
+				goalDtoList?.filter(x => !x.recurring).map(goal => (
 					<ListItem key={goal.id}>
 						<Link href={"/edit-goal/" + goal.id}>
 							<ListItemButton

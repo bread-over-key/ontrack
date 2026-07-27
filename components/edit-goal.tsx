@@ -34,6 +34,7 @@ export default function EditGoal(props: EditGoalProps) {
 		const { id, ...newGoal } = goal
 		props.onUpdate(goal.id, newGoal)
 		console.dir(newGoal)
+		router.push("/goals")
 	}
 
 	function handleDelete() {
@@ -83,6 +84,18 @@ export default function EditGoal(props: EditGoalProps) {
 				onChange={
 					e => updateParameter(
 						"milestoneEnabled",
+						e.target.checked
+					)
+				}
+			/>
+		</Stack>
+		<Stack direction={"row"} sx={{ alignItems: "center", justifyContent: "space-between" }}>
+			<Typography>recurring</Typography>
+			<Checkbox
+				checked={goal.recurring}
+				onChange={
+					e => updateParameter(
+						"recurring",
 						e.target.checked
 					)
 				}

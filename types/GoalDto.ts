@@ -10,6 +10,7 @@ export interface GoalDto {
 	totalEntries: number
 	waterRemaining: number
 	daysPastWater: number
+	recurring: boolean
 
 	entries: EntryDto[]
 }

@@ -40,6 +40,7 @@ export type GoalMinAggregateOutputType = {
   id: number | null
   name: string | null
   waterDuration: number | null
+  recurring: boolean | null
   milestoneEnabled: boolean | null
   archived: boolean | null
 }
@@ -48,6 +49,7 @@ export type GoalMaxAggregateOutputType = {
   id: number | null
   name: string | null
   waterDuration: number | null
+  recurring: boolean | null
   milestoneEnabled: boolean | null
   archived: boolean | null
 }
@@ -56,6 +58,7 @@ export type GoalCountAggregateOutputType = {
   id: number
   name: number
   waterDuration: number
+  recurring: number
   milestoneEnabled: number
   archived: number
   _all: number
@@ -76,6 +79,7 @@ export type GoalMinAggregateInputType = {
   id?: true
   name?: true
   waterDuration?: true
+  recurring?: true
   milestoneEnabled?: true
   archived?: true
 }
@@ -84,6 +88,7 @@ export type GoalMaxAggregateInputType = {
   id?: true
   name?: true
   waterDuration?: true
+  recurring?: true
   milestoneEnabled?: true
   archived?: true
 }
@@ -92,6 +97,7 @@ export type GoalCountAggregateInputType = {
   id?: true
   name?: true
   waterDuration?: true
+  recurring?: true
   milestoneEnabled?: true
   archived?: true
   _all?: true
@@ -187,6 +193,7 @@ export type GoalGroupByOutputType = {
   id: number
   name: string
   waterDuration: number
+  recurring: boolean
   milestoneEnabled: boolean
   archived: boolean
   _count: GoalCountAggregateOutputType | null
@@ -218,6 +225,7 @@ export type GoalWhereInput = {
   id?: Prisma.IntFilter<"Goal"> | number
   name?: Prisma.StringFilter<"Goal"> | string
   waterDuration?: Prisma.IntFilter<"Goal"> | number
+  recurring?: Prisma.BoolFilter<"Goal"> | boolean
   milestoneEnabled?: Prisma.BoolFilter<"Goal"> | boolean
   archived?: Prisma.BoolFilter<"Goal"> | boolean
   entries?: Prisma.EntryListRelationFilter
@@ -227,6 +235,7 @@ export type GoalOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   waterDuration?: Prisma.SortOrder
+  recurring?: Prisma.SortOrder
   milestoneEnabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   entries?: Prisma.EntryOrderByRelationAggregateInput
@@ -239,6 +248,7 @@ export type GoalWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.GoalWhereInput[]
   NOT?: Prisma.GoalWhereInput | Prisma.GoalWhereInput[]
   waterDuration?: Prisma.IntFilter<"Goal"> | number
+  recurring?: Prisma.BoolFilter<"Goal"> | boolean
   milestoneEnabled?: Prisma.BoolFilter<"Goal"> | boolean
   archived?: Prisma.BoolFilter<"Goal"> | boolean
   entries?: Prisma.EntryListRelationFilter
@@ -248,6 +258,7 @@ export type GoalOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   waterDuration?: Prisma.SortOrder
+  recurring?: Prisma.SortOrder
   milestoneEnabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
   _count?: Prisma.GoalCountOrderByAggregateInput
@@ -264,6 +275,7 @@ export type GoalScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Goal"> | number
   name?: Prisma.StringWithAggregatesFilter<"Goal"> | string
   waterDuration?: Prisma.IntWithAggregatesFilter<"Goal"> | number
+  recurring?: Prisma.BoolWithAggregatesFilter<"Goal"> | boolean
   milestoneEnabled?: Prisma.BoolWithAggregatesFilter<"Goal"> | boolean
   archived?: Prisma.BoolWithAggregatesFilter<"Goal"> | boolean
 }
@@ -271,6 +283,7 @@ export type GoalScalarWhereWithAggregatesInput = {
 export type GoalCreateInput = {
   name: string
   waterDuration: number
+  recurring?: boolean
   milestoneEnabled: boolean
   archived?: boolean
   entries?: Prisma.EntryCreateNestedManyWithoutGoalInput
@@ -280,6 +293,7 @@ export type GoalUncheckedCreateInput = {
   id?: number
   name: string
   waterDuration: number
+  recurring?: boolean
   milestoneEnabled: boolean
   archived?: boolean
   entries?: Prisma.EntryUncheckedCreateNestedManyWithoutGoalInput
@@ -288,6 +302,7 @@ export type GoalUncheckedCreateInput = {
 export type GoalUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   waterDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  recurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   milestoneEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   entries?: Prisma.EntryUpdateManyWithoutGoalNestedInput
@@ -297,6 +312,7 @@ export type GoalUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   waterDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  recurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   milestoneEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   entries?: Prisma.EntryUncheckedUpdateManyWithoutGoalNestedInput
@@ -306,6 +322,7 @@ export type GoalCreateManyInput = {
   id?: number
   name: string
   waterDuration: number
+  recurring?: boolean
   milestoneEnabled: boolean
   archived?: boolean
 }
@@ -313,6 +330,7 @@ export type GoalCreateManyInput = {
 export type GoalUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   waterDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  recurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   milestoneEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -321,6 +339,7 @@ export type GoalUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   waterDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  recurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   milestoneEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -329,6 +348,7 @@ export type GoalCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   waterDuration?: Prisma.SortOrder
+  recurring?: Prisma.SortOrder
   milestoneEnabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
 }
@@ -342,6 +362,7 @@ export type GoalMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   waterDuration?: Prisma.SortOrder
+  recurring?: Prisma.SortOrder
   milestoneEnabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
 }
@@ -350,6 +371,7 @@ export type GoalMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   waterDuration?: Prisma.SortOrder
+  recurring?: Prisma.SortOrder
   milestoneEnabled?: Prisma.SortOrder
   archived?: Prisma.SortOrder
 }
@@ -397,6 +419,7 @@ export type GoalUpdateOneRequiredWithoutEntriesNestedInput = {
 export type GoalCreateWithoutEntriesInput = {
   name: string
   waterDuration: number
+  recurring?: boolean
   milestoneEnabled: boolean
   archived?: boolean
 }
@@ -405,6 +428,7 @@ export type GoalUncheckedCreateWithoutEntriesInput = {
   id?: number
   name: string
   waterDuration: number
+  recurring?: boolean
   milestoneEnabled: boolean
   archived?: boolean
 }
@@ -428,6 +452,7 @@ export type GoalUpdateToOneWithWhereWithoutEntriesInput = {
 export type GoalUpdateWithoutEntriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   waterDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  recurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   milestoneEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -436,6 +461,7 @@ export type GoalUncheckedUpdateWithoutEntriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   waterDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  recurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   milestoneEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   archived?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -475,6 +501,7 @@ export type GoalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   waterDuration?: boolean
+  recurring?: boolean
   milestoneEnabled?: boolean
   archived?: boolean
   entries?: boolean | Prisma.Goal$entriesArgs<ExtArgs>
@@ -485,6 +512,7 @@ export type GoalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   waterDuration?: boolean
+  recurring?: boolean
   milestoneEnabled?: boolean
   archived?: boolean
 }, ExtArgs["result"]["goal"]>
@@ -493,6 +521,7 @@ export type GoalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   waterDuration?: boolean
+  recurring?: boolean
   milestoneEnabled?: boolean
   archived?: boolean
 }, ExtArgs["result"]["goal"]>
@@ -501,11 +530,12 @@ export type GoalSelectScalar = {
   id?: boolean
   name?: boolean
   waterDuration?: boolean
+  recurring?: boolean
   milestoneEnabled?: boolean
   archived?: boolean
 }
 
-export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "waterDuration" | "milestoneEnabled" | "archived", ExtArgs["result"]["goal"]>
+export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "waterDuration" | "recurring" | "milestoneEnabled" | "archived", ExtArgs["result"]["goal"]>
 export type GoalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entries?: boolean | Prisma.Goal$entriesArgs<ExtArgs>
   _count?: boolean | Prisma.GoalCountOutputTypeDefaultArgs<ExtArgs>
@@ -522,6 +552,7 @@ export type $GoalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     name: string
     waterDuration: number
+    recurring: boolean
     milestoneEnabled: boolean
     archived: boolean
   }, ExtArgs["result"]["goal"]>
@@ -951,6 +982,7 @@ export interface GoalFieldRefs {
   readonly id: Prisma.FieldRef<"Goal", 'Int'>
   readonly name: Prisma.FieldRef<"Goal", 'String'>
   readonly waterDuration: Prisma.FieldRef<"Goal", 'Int'>
+  readonly recurring: Prisma.FieldRef<"Goal", 'Boolean'>
   readonly milestoneEnabled: Prisma.FieldRef<"Goal", 'Boolean'>
   readonly archived: Prisma.FieldRef<"Goal", 'Boolean'>
 }

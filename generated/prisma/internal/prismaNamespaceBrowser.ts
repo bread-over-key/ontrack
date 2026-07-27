@@ -75,6 +75,7 @@ export const GoalScalarFieldEnum = {
   id: 'id',
   name: 'name',
   waterDuration: 'waterDuration',
+  recurring: 'recurring',
   milestoneEnabled: 'milestoneEnabled',
   archived: 'archived'
 } as const

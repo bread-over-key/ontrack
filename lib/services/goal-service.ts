@@ -1,6 +1,7 @@
 import { Entry, Goal } from "@/generated/prisma/browser";
 import * as goalRepo from "@/lib/repositories/goal-repository"
 import { GoalDto } from "@/types/GoalDto";
+import { receiveMessageOnPort } from "worker_threads";
 
 
 export async function getAll() {
@@ -21,6 +22,8 @@ export async function getAll() {
 			totalEntries: goal.entries.length,
 			waterRemaining: waterRemaining,
 			daysPastWater: daysPastWater,
+			recurring: goal.recurring,
+
 			entries: goal.entries
 		} as GoalDto
 
@@ -36,7 +39,8 @@ export async function createGoal(name: string) {
 		name: name,
 		waterDuration: 1,
 		milestoneEnabled: false,
-		archived: false
+		archived: false,
+		recurring: false
 	}
 
 	const goal: Goal = await goalRepo.createGoal(newGoal);
@@ -50,6 +54,7 @@ export async function createGoal(name: string) {
 		totalEntries: 0,
 		waterRemaining: goal.waterDuration,
 		daysPastWater: 0,
+		recurring: goal.recurring,
 		entries: []
 	};
 
@@ -62,7 +67,8 @@ export async function updateGoal(id: number, goalDto: Omit<GoalDto, "id" | "entr
 		name: goalDto.name,
 		archived: goalDto.archived,
 		waterDuration: goalDto.waterDuration,
-		milestoneEnabled: goalDto.milestoneEnabled
+		milestoneEnabled: goalDto.milestoneEnabled,
+		recurring: goalDto.recurring
 	}
 
 	return await goalRepo.updateGoal(id, goal);
