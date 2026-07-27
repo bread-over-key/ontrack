@@ -95,8 +95,19 @@ export default function GoalDetailList(
 			</AccordionDetails>
 		</Accordion>
 
-		<Typography variant="h6" color="textSecondary">Recurring</Typography>
-		<Box sx={{ overflow: "scroll", overflowX: "hidden", maxHeight: "76vh" }}>
+		<Box
+			sx={{
+				overflow: "scroll",
+				overflowX: "hidden",
+				maxHeight: "76vh"
+			}}
+		>
+			<Typography
+				variant="h6"
+				color="textSecondary">
+				Recurring
+			</Typography>
+
 			<List>
 				{props.goals?.filter(x => x.recurring).map(g => {
 
@@ -110,9 +121,13 @@ export default function GoalDetailList(
 
 				})}
 			</List>
-		</Box>
-		<Typography variant="h6" color="textSecondary">Non Recurring</Typography>
-		<Box sx={{ overflow: "scroll", overflowX: "clip", maxHeight: "76vh" }}>
+
+			<Typography
+				variant="h6"
+				color="textSecondary">
+				Non Recurring
+			</Typography>
+
 			<List>
 				{props.goals?.filter(x => !x.recurring).map(g => {
 
