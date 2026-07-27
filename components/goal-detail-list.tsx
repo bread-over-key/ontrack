@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 interface GoalDetailListProps {
 	goals: GoalDto[]
 	handleRefresh: () => void
+	currentDate: Date
 }
 export default function GoalDetailList(
 	props: GoalDetailListProps
