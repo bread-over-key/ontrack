@@ -9,6 +9,7 @@ import React from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from "next/navigation";
+import useSafariWebApp from "@/hooks/useSafariWebApp";
 
 
 interface GoalDetailListProps {
@@ -20,6 +21,9 @@ export default function GoalDetailList(
 	props: GoalDetailListProps
 ) {
 	const id = React.useId();
+
+	useSafariWebApp()
+
 	const [timeTravelDate, setTimeTravelDate] =
 		useState<Dayjs | null>(dayjs(new Date()))
 

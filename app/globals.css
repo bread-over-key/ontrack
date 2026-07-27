@@ -3,10 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+	--overflow: "auto";
 }
 
 html, body {
-  overflow: hidden;
+  overflow: var(--overflow);
   overflow-x: hidden;
 }
 body {
