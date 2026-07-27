@@ -11,9 +11,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from "next/navigation";
 
 
-
 interface GoalDetailListProps {
 	goals: GoalDto[]
+	handleRefresh: () => void
 }
 export default function GoalDetailList(
 	props: GoalDetailListProps
@@ -76,7 +76,7 @@ export default function GoalDetailList(
 				<Box sx={{ m: 1 }}></Box>
 				<Divider />
 				<Box sx={{ m: 1 }}></Box>
-				<Button variant="outlined" onClick={() => { router.push("/") }}>Refresh</Button>
+				<Button variant="outlined" onClick={() => { props.handleRefresh() }}>Refresh</Button>
 				<Box sx={{ m: 1 }}></Box>
 				<Divider />
 				<Box sx={{ m: 1 }}></Box>
