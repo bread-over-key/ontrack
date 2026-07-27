@@ -81,7 +81,7 @@ export default function GoalDetails(props: {
 		console.log("handle plan")
 		startTransition(async () => {
 
-			if (!status.plan) {
+			if (!status["plan"]) {
 				let tempGoal = { ...props.goal }
 
 				tempGoal.entries.push(
@@ -99,10 +99,10 @@ export default function GoalDetails(props: {
 			else {
 				let tempGoal = { ...props.goal }
 
-				tempGoal.entries = 
+				tempGoal.entries =
 					tempGoal
-					.entries
-					.filter(x => x.id != (status.plan?.id ?? 0))
+						.entries
+						.filter(x => x.id != (status.plan?.id ?? 0))
 				console.log("new goal")
 				console.log("id to delete", status.plan.id)
 				console.dir(tempGoal)
@@ -116,27 +116,100 @@ export default function GoalDetails(props: {
 	}
 
 	function handleSchedule() {
-		if (!status.schedule)
-			addEntryAction(props.goal.id, "schedule", props.date)
-		else {
-			deleteEntryAction(status.schedule.id)
-		}
+		startTransition(async () => {
+			if (!status.schedule) {
+
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries.push(
+					{
+						id: 1,
+						date: props.date,
+						type: "schedule",
+					})
+
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				addEntryAction(props.goal.id, "schedule", props.date)
+			}
+			else {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries =
+					tempGoal
+						.entries
+						.filter(x => x.id != (status.schedule?.id ?? 0))
+				console.log("new goal")
+				console.log("id to delete", status.schedule.id)
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				deleteEntryAction(status.schedule.id)
+			}
+		})
 	}
 
 	function handleDoIt() {
-		if (!status.doit)
-			addEntryAction(props.goal.id, "doit", props.date)
-		else {
-			deleteEntryAction(status.doit.id)
-		}
+		startTransition(async () => {
+			if (!status.doit) {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries.push(
+					{
+						id: 1,
+						date: props.date,
+						type: "doit",
+					})
+
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				addEntryAction(props.goal.id, "doit", props.date)
+			}
+			else {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries =
+					tempGoal
+						.entries
+						.filter(x => x.id != (status.doit?.id ?? 0))
+				console.log("new goal")
+				console.log("id to delete", status.doit.id)
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				deleteEntryAction(status.doit.id)
+			}
+		})
 	}
 
 	function handleMilestone() {
-		if (!status.milestone)
-			addEntryAction(props.goal.id, "milestone", props.date)
-		else {
-			deleteEntryAction(status.milestone.id)
-		}
+		startTransition(async () => {
+			if (!status.milestone) {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries.push(
+					{
+						id: 1,
+						date: props.date,
+						type: "milestone",
+					})
+
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				addEntryAction(props.goal.id, "milestone", props.date)
+			}
+			else {
+				let tempGoal = { ...props.goal }
+
+				tempGoal.entries =
+					tempGoal
+						.entries
+						.filter(x => x.id != (status.milestone?.id ?? 0))
+				console.log("new goal")
+				console.log("id to delete", status.milestone.id)
+				console.dir(tempGoal)
+				setOptimisticGoal(tempGoal)
+				deleteEntryAction(status.milestone.id)
+			}
+		})
 	}
 
 	return <ListItem sx={{ pl: 0 }}>
