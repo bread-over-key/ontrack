@@ -5,7 +5,7 @@ import NarBar from "./nav-bar"
 import RootProviders from "./root-providers"
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
-const version = "1.10"
+const version = "1.11"
 
 export default function GlobalLayout(props: { children: React.ReactNode }) {
 	return <AppRouterCacheProvider>

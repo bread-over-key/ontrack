@@ -40,7 +40,7 @@ export function differenceInDays(date1: Date, date2: Date) {
 	if (isSameDate(date1, date2))
 		return 0
 
-	var diff = Math.abs(date1.setHours(0, 0, 0, 0) - date2.getTime());
+	var diff = date1.setHours(0, 0, 0, 0) - date2.getTime();
 	var diffDays = Math.ceil(diff / (1000 * 3600 * 24));
 	return diffDays
 }

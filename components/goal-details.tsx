@@ -1,10 +1,12 @@
 import { addEntryAction, deleteEntryAction } from "@/app/actions/entry-actions";
 import { differenceInDays, findLastDate, isSameDate } from "@/lib/date-compare";
+import { recentEntries } from "@/lib/water";
 import { EntryDto } from "@/types/EntryDto";
 import { GoalDto } from "@/types/GoalDto";
 import { ListItem, Stack, Chip, Typography, Box, Button, Divider } from "@mui/material";
 import { type } from "os";
 import { startTransition, useEffect, useMemo, useOptimistic, useTransition } from "react";
+import EntryButton from "./entry-button";
 
 export default function GoalDetails(props: {
 	goal: GoalDto,
@@ -17,6 +19,22 @@ export default function GoalDetails(props: {
 	const [optimisticGoal, setOptimisticGoal]
 		= useOptimistic(props.goal)
 
+	const recent = useMemo(
+		() => {
+
+			const entries = recentEntries(
+				props.goal.waterDuration,
+				props.goal.entries,
+				props.date)
+
+			return {
+				plan: entries.some(x => x == "plan"),
+				schedule: entries.some(x => x == "schedule"),
+				doit: entries.some(x => x == "doit"),
+				milestone: entries.some(x => x == "milestone"),
+			}
+		}
+		, [props.goal, props.date])
 	const waterRemaining = useMemo(
 		() => {
 			const entryDates: Date[] =
@@ -231,48 +249,31 @@ export default function GoalDetails(props: {
 				direction={"row"}
 				sx={{ pt: "2pt" }}
 			>
-				<Button onClick={handlePlan} sx={{ p: 0, m: 0 }} >
-					<Chip
-						label="plan"
-						sx={
-							{
-								background: status.plan ? "#b2c0d6" : "inherit",
-								color: status.plan ? "black" : "gray"
-							}
-						}
-					/>
-				</Button>
-				<Button onClick={handleSchedule} sx={{ p: 0 }}>
-					<Chip label="schedule"
-						sx={
-							{
-								background: status.schedule ? "#b2c0d6" : "inherit",
-								color: status.schedule ? "black" : "gray"
-							}
-						}
-					/>
-				</Button>
-				<Button onClick={handleDoIt} sx={{ p: 0 }}>
-					<Chip label="did it"
-						sx={
-							{
-								background: status.doit ? "#b2c0d6" : "inherit",
-								color: status.doit ? "black" : "gray"
-							}
-						}
-					/>
-				</Button>
+				<EntryButton
+					onClick={handlePlan}
+					enabled={status.plan != undefined}
+					highlight={recent.plan}
+					label="plan"
+				></EntryButton>
+				<EntryButton
+					onClick={handleSchedule}
+					enabled={status.schedule != undefined}
+					highlight={recent.schedule}
+					label="schedule"
+				></EntryButton>
+				<EntryButton
+					onClick={handleDoIt}
+					enabled={status.doit != undefined}
+					highlight={recent.doit}
+					label="did it"
+				></EntryButton>
 				{props.goal.milestoneEnabled &&
-					<Button onClick={handleMilestone} sx={{ p: 0 }}>
-						<Chip label="milestone"
-							sx={
-								{
-									background: status.milestone ? "#b2c0d6" : "inherit",
-									color: status.milestone ? "black" : "gray"
-								}
-							}
-						/>
-					</Button>
+					<EntryButton
+						onClick={handleMilestone}
+						enabled={status.milestone != undefined}
+						highlight={recent.milestone}
+						label="milestone"
+					></EntryButton>
 				}
 				{!props.goal.milestoneEnabled &&
 					<Button >
